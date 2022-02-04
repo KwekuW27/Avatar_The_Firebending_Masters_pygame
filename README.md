@@ -1,0 +1,2 @@
+# Avatar_The_Firebending_Masters_pygame
+ Long ago, the four nations lived together in harmony, then everything changed when the fire nation attacked. Follow the banished crown prince of the Fire Nation, as Zuko assumes the role of the Blue Spirit to infiltrate a Fire Nation Fortress. Avoid armed enemy war balloons and stray objects by running, jumping, and firebending your way through enemy territory. Score enough points to successfully take the fortress, or have your identity revealed in this fast-paced infinite-runner style pygame. 
