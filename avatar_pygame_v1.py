@@ -3,6 +3,9 @@ print("github repository test")
 import pygame
 from sqlalchemy import true #import
 
+#import the player class
+from Player import Player
+
 #defining WINDOW SIZE
 width = 1000 
 height = 1000 
@@ -11,10 +14,13 @@ height = 1000
 window = pygame.display.set_mode((width, height))
 
 #name the game WINDOW
-pygame.display.set_caption("avatar_pyGame")
+pygame.display.set_caption("Avatar: The Firebender Master")
 
 #frame rate of game
 fps = 60
+
+#player located at a temporary X and Y location
+player1 = Player(200, 100)
 
 def main():
 # to make the game RUN at a consistent framerate
@@ -29,6 +35,9 @@ def main():
 
         #fills the game and adjust for color
         window.fill((150,40,30))
+
+        #show the player in the game screen based on the render function in Player Class
+        player1.render(window)
 
         # put code here that should be run every frame
         # of your game
