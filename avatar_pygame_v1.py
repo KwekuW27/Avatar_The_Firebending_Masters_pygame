@@ -10,7 +10,7 @@ from Obstacle import Obstacle
 
 #defining WINDOW SIZE
 width = 1000 
-height = 1000 
+height = 800 
 
 #display WINDOW
 window = pygame.display.set_mode((width, height))
@@ -30,9 +30,25 @@ enemyShip = Enemy(900, 200)
 #obstacle var
 enemyObstacle = Obstacle(900, 800)
 
+# load the image for the background
+backgroundImg = pygame.image.load("Assets/gameBackground.jpeg")
+
+#window movement render variables
+backgroundX = 0
+backgroundX2 = 5000
+
 def main():
 # to make the game RUN at a consistent framerate
     clock = pygame.time.Clock()
+    backgX2 = -1000000
+    backgX = -1000000
+    if backgX == -1000000:
+        backgX = backgroundX
+        backgX2 = backgroundX2
+
+
+        
+
 
     running = True #capitalized T = boolean
 
@@ -46,6 +62,7 @@ def main():
             # if the game is exited out of, then stop running the game
             if event.type == pygame.QUIT:
                 running = False
+
 
         # this gets a list of booleans showing which keys are currently pressed
         keysPressed = pygame.key.get_pressed()
@@ -66,13 +83,23 @@ def main():
             enemyObstacle.x -= enemyObstacle.speed
 
         #fills the game and adjust for color
-        window.fill(( 45, 45, 45))
+        window.blit(backgroundImg, (backgX,0))
+        window.blit(backgroundImg, (backgX2,0))
+
+        backgX -=5
+        backgX2 -=5
+
+        if backgX<=-5000:
+            backgX = 5000
+        if backgX2<=-5000:
+            backgX2 = 5000
 
         playerZuko.render(window)
 
         enemyShip.render(window)
 
         enemyObstacle.render(window)
+
 
 
         # put code here that should be run every frame
