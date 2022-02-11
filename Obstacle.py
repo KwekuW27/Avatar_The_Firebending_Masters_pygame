@@ -5,7 +5,7 @@ class Obstacle:
     ### global call vars###
     width = 40
     height = 40
-    speed = 1
+    speed = 2
     #constructor function
     #health
     #width
@@ -15,13 +15,15 @@ class Obstacle:
     #y
     #isDead
 
-    def __init__(obtacleself, _x, _y):
-        obtacleself.x = _x
-        obtacleself.y = _y
+
+    def __init__(self, _x, _y):
+        self.x = _x
+        self.y = _y
+        self.obstacleHitbox = pygame.Rect(self.x, self.y, self.width, self.height)
+
 
         # render function
-    def render(obstacleself, aSurface):
-        enemyObstacle = pygame.Rect(obstacleself.x, obstacleself.y, obstacleself.width, obstacleself.height)
-
+    def render(self, aSurface):
+        self.obstacleHitbox = pygame.Rect(self.x, self.y, self.width, self.height)
         #Drawing Rectangle
-        pygame.draw.rect(aSurface, (255,255,255), enemyObstacle)
+        pygame.draw.rect(aSurface, (255,255,255), self.obstacleHitbox)

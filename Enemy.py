@@ -15,13 +15,15 @@ class Enemy:
     #y
     #isDead
 
-    def __init__(enemyself, _x, _y):
-        enemyself.x = _x
-        enemyself.y = _y
+    def __init__(self, _x, _y):
+        self.x = _x
+        self.y = _y
+        self.enemyHitbox = pygame.Rect(self.x, self.y, self.width, self.height)
+
 
         # render function
-    def render(enemyself, aSurface):
-        enemyShip = pygame.Rect(enemyself.x, enemyself.y, enemyself.width, enemyself.height)
+    def render(self, aSurface):
+        self.enemyHitbox = pygame.Rect(self.x, self.y, self.width, self.height)
 
         #Drawing Rectangle
-        pygame.draw.rect(aSurface, (255,255,255), enemyShip)
+        pygame.draw.rect(aSurface, (255,255,255), self.enemyHitbox)
