@@ -59,9 +59,25 @@ flamingFireBallList = []
 
 # flamingFireBallList.append(FlamingFireBall(aEnemy.x, aEnemy.y))
 
+# load the image for the background
+backgroundImg = pygame.image.load("Assets/gameBackground.jpeg")
+
+#window movement render variables
+backgroundX = 0
+backgroundX2 = 5000
+
 def main():
 # to make the game RUN at a consistent framerate
     clock = pygame.time.Clock()
+    backgX2 = -1000000
+    backgX = -1000000
+    if backgX == -1000000:
+        backgX = backgroundX
+        backgX2 = backgroundX2
+
+
+        
+
 
     obstacleSpawnClock = pygame.time.Clock()
     enemySpawnClock = pygame.time.Clock()
@@ -215,6 +231,7 @@ def main():
         playerZuko.render(window)
 
         # aObstacle.render(window)
+
 
         # put code here that should be run every frame
         # of your game
