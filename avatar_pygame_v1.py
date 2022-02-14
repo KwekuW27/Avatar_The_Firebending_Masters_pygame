@@ -57,6 +57,12 @@ flamingFireBallY = enemyShip.y
 
 flamingFireBallList = []
 
+# load the image for the background
+backgroundImg = pygame.image.load("Assets/gameBackground.jpeg")
+
+BackgroundXstart = 0
+BackgroundX2start = 5000
+
 # flamingFireBallList.append(FlamingFireBall(aEnemy.x, aEnemy.y))
 
 
@@ -77,6 +83,10 @@ def main():
     timeSince3 = 0
     timeBetween3 = 1000
 
+    #sets display positions
+    BackgroundX2refresh = 1000000
+    BackgroundXrefresh = 1000000
+
     jump = False
 
     vel_y = 13
@@ -85,8 +95,9 @@ def main():
 
     while running:
 
-        #fills the game and adjust for color
-        window.fill((45, 45, 45))
+
+
+        
 
        #this makes it so this function can run at most FPS
         clock.tick(fps)
@@ -96,6 +107,24 @@ def main():
             # if the game is exited out of, then stop running the game
             if event.type == pygame.QUIT:
                 running = False
+
+        #sets the starting X positions for the backgrounds
+        if (BackgroundXrefresh == 1000000):
+            BackgroundX2refresh = BackgroundX2start
+            BackgroundXrefresh = BackgroundXstart
+
+        #Enables background display
+        window.blit(backgroundImg, (BackgroundXrefresh, 0))
+        window.blit(backgroundImg, (BackgroundX2refresh, 0))
+        #updates starting position once
+        BackgroundXrefresh = BackgroundXrefresh - 5
+        BackgroundX2refresh = BackgroundX2refresh - 5
+        #Resets background position
+        if (BackgroundXrefresh <= -5000):
+            BackgroundXrefresh = 5000
+        if (BackgroundX2refresh <= -5000):
+            BackgroundX2refresh = 5000
+
 
         #obstacle spawning
         dt = obstacleSpawnClock.tick()
