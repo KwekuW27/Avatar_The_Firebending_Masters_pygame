@@ -40,11 +40,12 @@ enemyShip = Enemy(enemyShipX, enemyShipY)
 
 enemyList = []
 
-#enemyObstacle = Obstacle(900, 800)
 enemyList.append(Enemy(enemyShipX, enemyShipY))
 
 enemyObstacleX = 900
 enemyObstacleY = 750
+
+enemyObstacle = Obstacle(enemyObstacleX, enemyObstacleY)
 
 obstacleList = []
 
@@ -56,7 +57,7 @@ flamingFireBallY = enemyShip.y
 
 flamingFireBallList = []
 
-flamingFireBallList.append(FlamingFireBall(flamingFireBallX, flamingFireBallY))
+# flamingFireBallList.append(FlamingFireBall(aEnemy.x, aEnemy.y))
 
 def main():
 # to make the game RUN at a consistent framerate
@@ -124,11 +125,29 @@ def main():
             if aObstacle.obstacleHitbox.right < 0:
                 obstacleList.remove(aObstacle)
                 print("right side detected")
+            
+            #collision detect between obstacle and player
+            collide = pygame.Rect.colliderect(playerZuko.hitBox, aObstacle.obstacleHitbox)
+
+                    # If the objects are colliding
+                    # then changing the y coordinate
+            if collide:
+                    playerZuko.hitBox.right = aObstacle.obstacleHitbox.left
+                    playerZuko.hitBox.bottom = aObstacle.obstacleHitbox.top
+                    obstacleList.remove(aObstacle)
+                    print("colliding")
 
         # print(len(enemyList))
         for aEnemy in enemyList :
             
             aEnemy.render(window)
+
+                 #flamingForeBallspawning
+            dt = flamingFireBallSpawnClock.tick()
+            timeSince3 += dt
+            if timeSince3 > timeBetween3 :
+                flamingFireBallList.append(FlamingFireBall(aEnemy.x, aEnemy.y))
+                timeSince3 = 0
 
             #enemy movement
             if running == True:
@@ -138,45 +157,30 @@ def main():
                 enemyList.remove(aEnemy)
                 print("right side detected")
 
-        print(len(flamingFireBallList))
+        # print(len(flamingFireBallList))
         for aFlamingFireBall in flamingFireBallList :
 
             aFlamingFireBall.render(window)
-
-                #flamingForeBallspawning
-            dt = flamingFireBallSpawnClock.tick()
-            timeSince3 += dt
-            if timeSince3 > timeBetween3 :
-                flamingFireBallList.append(FlamingFireBall(aEnemy.x, aEnemy.y))
-                timeSince3 = 0
 
              #flamingFireBall movement
             if running == True:
                 aFlamingFireBall.y += aFlamingFireBall.speed
 
-            if aFlamingFireBall.flamingFireBallHitBox.top > height:
+            if aFlamingFireBall.flamingFireBallHitbox.top > height:
                 flamingFireBallList.remove(aFlamingFireBall)
                 print("top side detected")
 
 
-            #collision detect between obstacle and player
-        collide = pygame.Rect.colliderect(playerZuko.hitBox, aObstacle.obstacleHitbox)
+            
 
-            # If the objects are colliding
-            # then changing the y coordinate
-        if collide:
-                playerZuko.hitBox.right = aObstacle.obstacleHitbox.left
-                playerZuko.hitBox.bottom = aObstacle.obstacleHitbox.top
-                obstacleList.remove(aObstacle)
-                # print("colliding")
-                
+        # DONT USE
         #collision between flamingFireBall and player
-        collide2 = pygame.Rect.colliderect(playerZuko.hitBox, aFlamingFireBall.flamingFireBallHitbox)
+        # collide2 = pygame.Rect.colliderect(playerZuko.hitBox, aFlamingFireBall.flamingFireBallHitbox)
 
-        if collide2:
-            playerZuko.hitBox.top = aFlamingFireBall.flamingFireBallHitbox.bottom
-            flamingFireBallList.remove(aFlamingFireBall)
-            print("fire colliding")
+        # if collide2:
+        #     playerZuko.hitBox.top = aFlamingFireBall.flamingFireBallHitbox.bottom
+        #     flamingFireBallList.remove(aFlamingFireBall)
+        #     print("fire colliding")
 
 
         # print("end of for loop")
