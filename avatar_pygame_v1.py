@@ -60,8 +60,12 @@ flamingFireBallList = []
 # load the image for the background
 backgroundImg = pygame.image.load("Assets/gameBackground.jpeg")
 
+#starting X positions for background
 BackgroundXstart = 0
 BackgroundX2start = 5000
+
+#switch case starting number
+swval = 2
 
 # flamingFireBallList.append(FlamingFireBall(aEnemy.x, aEnemy.y))
 
@@ -96,7 +100,6 @@ def main():
     while running:
 
 
-
         
 
        #this makes it so this function can run at most FPS
@@ -108,141 +111,156 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
-        #sets the starting X positions for the backgrounds
-        if (BackgroundXrefresh == 1000000):
-            BackgroundX2refresh = BackgroundX2start
-            BackgroundXrefresh = BackgroundXstart
+        if(swval == 0):
+            #title
+            print ("title")
+        elif(swval == 1):
+            #instruction
+            two = 2
+            print ("Instructions")
+        elif(swval == 2):
+            #Game
+            #sets the starting X positions for the backgrounds
+            if (BackgroundXrefresh == 1000000):
+                BackgroundX2refresh = BackgroundX2start
+                BackgroundXrefresh = BackgroundXstart
 
-        #Enables background display
-        window.blit(backgroundImg, (BackgroundXrefresh, 0))
-        window.blit(backgroundImg, (BackgroundX2refresh, 0))
-        #updates starting position once
-        BackgroundXrefresh = BackgroundXrefresh - 5
-        BackgroundX2refresh = BackgroundX2refresh - 5
-        #Resets background position
-        if (BackgroundXrefresh <= -5000):
-            BackgroundXrefresh = 5000
-        if (BackgroundX2refresh <= -5000):
-            BackgroundX2refresh = 5000
+            #Enables background display
+            window.blit(backgroundImg, (BackgroundXrefresh, 0))
+            window.blit(backgroundImg, (BackgroundX2refresh, 0))
+            #updates starting position once
+            BackgroundXrefresh = BackgroundXrefresh - 5
+            BackgroundX2refresh = BackgroundX2refresh - 5
+            #Resets background position
+            if (BackgroundXrefresh <= -5000):
+                BackgroundXrefresh = 5000
+            if (BackgroundX2refresh <= -5000):
+                BackgroundX2refresh = 5000
 
 
-        #obstacle spawning
-        dt = obstacleSpawnClock.tick()
-        timeSince += dt
-        if timeSince > timeBetween :
-            #enemyObstacle = Obstacle(900, 800)
-            obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY))
-            timeSince = 0
+            #obstacle spawning
+            dt = obstacleSpawnClock.tick()
+            timeSince += dt
+            if timeSince > timeBetween :
+                #enemyObstacle = Obstacle(900, 800)
+                obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY))
+                timeSince = 0
 
-        #shipspawning
-        dt = enemySpawnClock.tick()
-        timeSince2 += dt
-        if timeSince2 > timeBetween2 :
-            enemyList.append(Enemy(enemyShipX, enemyShipY))
-            timeSince2 = 0
+            #shipspawning
+            dt = enemySpawnClock.tick()
+            timeSince2 += dt
+            if timeSince2 > timeBetween2 :
+                enemyList.append(Enemy(enemyShipX, enemyShipY))
+                timeSince2 = 0
+
         
-        
-        #print(len(obstacleList))
-        for aObstacle in obstacleList :
+            #print(len(obstacleList))
+            for aObstacle in obstacleList :
 
-            aObstacle.render(window)
-            # print(aObstacle.x)
-            #obstacle movement
-            if running == True:
-                aObstacle.x -= aObstacle.speed
                 aObstacle.render(window)
+                # print(aObstacle.x)
+                #obstacle movement
+                if running == True:
+                    aObstacle.x -= aObstacle.speed
+                    aObstacle.render(window)
             
-            if aObstacle.obstacleHitbox.right < 0:
-                obstacleList.remove(aObstacle)
-                print("right side detected")
+                if aObstacle.obstacleHitbox.right < 0:
+                    obstacleList.remove(aObstacle)
+                    print("right side detected")
             
-            #collision detect between obstacle and player
-            collide = pygame.Rect.colliderect(playerZuko.hitBox, aObstacle.obstacleHitbox)
+                #collision detect between obstacle and player
+                collide = pygame.Rect.colliderect(playerZuko.hitBox, aObstacle.obstacleHitbox)
 
                     # If the objects are colliding
                     # then changing the y coordinate
-            if collide:
-                    playerZuko.hitBox.right = aObstacle.obstacleHitbox.left
-                    playerZuko.hitBox.bottom = aObstacle.obstacleHitbox.top
-                    obstacleList.remove(aObstacle)
-                    print("colliding")
+                if collide:
+                        playerZuko.hitBox.right = aObstacle.obstacleHitbox.left
+                        playerZuko.hitBox.bottom = aObstacle.obstacleHitbox.top
+                        obstacleList.remove(aObstacle)
+                        print("colliding")
 
-        # print(len(enemyList))
-        for aEnemy in enemyList :
+            # print(len(enemyList))
+            for aEnemy in enemyList :
             
-            aEnemy.render(window)
+                aEnemy.render(window)
 
-                 #flamingForeBallspawning
-            dt = flamingFireBallSpawnClock.tick()
-            timeSince3 += dt
-            if timeSince3 > timeBetween3 :
-                flamingFireBallList.append(FlamingFireBall(aEnemy.x, aEnemy.y))
-                timeSince3 = 0
+                     #flamingForeBallspawning
+                dt = flamingFireBallSpawnClock.tick()
+                timeSince3 += dt
+                if timeSince3 > timeBetween3 :
+                    flamingFireBallList.append(FlamingFireBall(aEnemy.x, aEnemy.y))
+                    timeSince3 = 0
 
-            #enemy movement
-            if running == True:
-                aEnemy.x -= aEnemy.speed
+                #enemy movement
+                if running == True:
+                    aEnemy.x -= aEnemy.speed
 
-            if aEnemy.enemyHitbox.right < 0:
-                enemyList.remove(aEnemy)
-                print("right side detected")
+                if aEnemy.enemyHitbox.right < 0:
+                    enemyList.remove(aEnemy)
+                    print("right side detected")
 
-        # print(len(flamingFireBallList))
-        for aFlamingFireBall in flamingFireBallList :
+            # print(len(flamingFireBallList))
+            for aFlamingFireBall in flamingFireBallList :
 
-            aFlamingFireBall.render(window)
+                aFlamingFireBall.render(window)
 
-             #flamingFireBall movement
-            if running == True:
-                aFlamingFireBall.y += aFlamingFireBall.speed
+                 #flamingFireBall movement
+                if running == True:
+                    aFlamingFireBall.y += aFlamingFireBall.speed
 
-            if aFlamingFireBall.flamingFireBallHitbox.top > height:
-                flamingFireBallList.remove(aFlamingFireBall)
-                print("top side detected")
+                if aFlamingFireBall.flamingFireBallHitbox.top > height:
+                    flamingFireBallList.remove(aFlamingFireBall)
+                    print("top side detected")
 
 
             
 
-        # DONT USE
-        #collision between flamingFireBall and player
-        # collide2 = pygame.Rect.colliderect(playerZuko.hitBox, aFlamingFireBall.flamingFireBallHitbox)
+            # DONT USE
+            #collision between flamingFireBall and player
+            # collide2 = pygame.Rect.colliderect(playerZuko.hitBox, aFlamingFireBall.flamingFireBallHitbox)
 
-        # if collide2:
-        #     playerZuko.hitBox.top = aFlamingFireBall.flamingFireBallHitbox.bottom
-        #     flamingFireBallList.remove(aFlamingFireBall)
-        #     print("fire colliding")
+            # if collide2:
+            #     playerZuko.hitBox.top = aFlamingFireBall.flamingFireBallHitbox.bottom
+            #     flamingFireBallList.remove(aFlamingFireBall)
+            #     print("fire colliding")
 
 
-        # print("end of for loop")
+            # print("end of for loop")
 
-        # this gets a list of booleans showing which keys are currently pressed
-        keysPressed = pygame.key.get_pressed()
+            # this gets a list of booleans showing which keys are currently pressed
+            keysPressed = pygame.key.get_pressed()
 
-        # if the 'w' key is pressed
-        if keysPressed[pygame.K_a] == True:
-            playerZuko.x -= playerZuko.speed
+            # if the 'w' key is pressed
+            if keysPressed[pygame.K_a] == True:
+                playerZuko.x -= playerZuko.speed
 
-        if keysPressed[pygame.K_a] == True:
-            playerZuko.x -= playerZuko.speed
+            if keysPressed[pygame.K_a] == True:
+                playerZuko.x -= playerZuko.speed
 
-        # if the 'd' key is pressed
-        if keysPressed[pygame.K_d] == True:
-            playerZuko.x += playerZuko.speed
+            # if the 'd' key is pressed
+            if keysPressed[pygame.K_d] == True:
+                playerZuko.x += playerZuko.speed
 
-        if keysPressed[pygame.K_d] == True:
-            playerZuko.x += playerZuko.speed
+            if keysPressed[pygame.K_d] == True:
+                playerZuko.x += playerZuko.speed
         
-        if jump is False and keysPressed[pygame.K_SPACE] :
-            jump = True
+            if jump is False and keysPressed[pygame.K_SPACE] :
+                jump = True
 
-        if jump is True :
-            playerZuko.y -= vel_y
-            vel_y -= 1
-            if vel_y < -13 :
-                jump = False
-                vel_y = 13
+            if jump is True :
+                playerZuko.y -= vel_y
+                vel_y -= 1
+                if vel_y < -13 :
+                    jump = False
+                    vel_y = 13
 
-        playerZuko.render(window)
+            playerZuko.render(window)
+        elif (swval == 3):
+            #bad end + score
+            print ("Bad")
+        elif (swval == 4):
+            #good end + score
+            print ("Good")
 
         # aObstacle.render(window)
 
