@@ -1,6 +1,7 @@
 print("github repository test")
 
 from random import randrange
+from random import randint
 from turtle import window_width
 import pygame
 from sqlalchemy import false
@@ -65,7 +66,7 @@ BackgroundXstart = 0
 BackgroundX2start = 5000
 
 #switch case starting number
-swval = 2
+startval = 0
 
 # flamingFireBallList.append(FlamingFireBall(aEnemy.x, aEnemy.y))
 
@@ -87,12 +88,15 @@ def main():
     timeSince3 = 0
     timeBetween3 = 1000
 
+
     #sets display positions
     BackgroundX2refresh = 1000000
     BackgroundXrefresh = 1000000
 
     jump = False
 
+    swval = startval
+    
     vel_y = 13
 
     running = True #capitalized T = boolean
@@ -111,13 +115,25 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
+        # this gets a list of booleans showing which keys are currently pressed
+        keysPressed = pygame.key.get_pressed()
+    
         if(swval == 0):
             #title
             print ("title")
+            
+            # if the 'd' key is pressed
+            if keysPressed[pygame.K_w] == True:
+                swval = 1
+
         elif(swval == 1):
             #instruction
             two = 2
             print ("Instructions")
+            # if the 'd' key is pressed
+            if keysPressed[pygame.K_s] == True:
+                swval = 2
+
         elif(swval == 2):
             #Game
             #sets the starting X positions for the backgrounds
@@ -153,6 +169,17 @@ def main():
                 enemyList.append(Enemy(enemyShipX, enemyShipY))
                 timeSince2 = 0
 
+
+                    #flamingForeBallspawning
+            dt = flamingFireBallSpawnClock.tick()
+            timeSince3 += dt
+            if timeSince3 > timeBetween3 :
+                if len(enemyList) > 0 :
+                    enemyIndex = randint(0, len(enemyList   ) - 1)
+                    spawnenemy = enemyList[enemyIndex]
+                    flamingFireBallList.append(FlamingFireBall(spawnenemy.x, spawnenemy.y))
+                #flamingFireBallList.append(FlamingFireBall(aEnemy.x, aEnemy.y))
+                timeSince3 = 0
         
             #print(len(obstacleList))
             for aObstacle in obstacleList :
@@ -183,13 +210,6 @@ def main():
             for aEnemy in enemyList :
             
                 aEnemy.render(window)
-
-                     #flamingForeBallspawning
-                dt = flamingFireBallSpawnClock.tick()
-                timeSince3 += dt
-                if timeSince3 > timeBetween3 :
-                    flamingFireBallList.append(FlamingFireBall(aEnemy.x, aEnemy.y))
-                    timeSince3 = 0
 
                 #enemy movement
                 if running == True:
@@ -227,8 +247,6 @@ def main():
 
             # print("end of for loop")
 
-            # this gets a list of booleans showing which keys are currently pressed
-            keysPressed = pygame.key.get_pressed()
 
             # if the 'w' key is pressed
             if keysPressed[pygame.K_a] == True:
@@ -268,6 +286,6 @@ def main():
         # put code here that should be run every frame
         # of your game
         pygame.display.update()
-
+        
 main()
 
