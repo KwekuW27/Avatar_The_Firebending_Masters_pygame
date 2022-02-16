@@ -11,6 +11,7 @@ from Player import Player
 from Player import Player
 from Enemy import Enemy
 from Obstacle import Obstacle
+from Animation import Animation
 
 # pygame.init()
 
@@ -60,6 +61,35 @@ flamingFireBallList = []
 
 # load the image for the background
 backgroundImg = pygame.image.load("Assets/gameBackground.jpeg")
+
+#player Animation images
+zukoImg0 = pygame.image.load("Assets/run0.png")
+zukoImg1 = pygame.image.load("Assets/run1.png")
+zukoImg2 = pygame.image.load("Assets/run2.png")
+zukoImg3 = pygame.image.load("Assets/run3.png")
+zukoImg4 = pygame.image.load("Assets/run4.png")
+
+#loading object images
+objectImg0 = pygame.image.load("Assets/barrel.png")
+
+#loading enemy images
+enemyImg0 = pygame.image.load("Assets/balloon.png")
+
+#loading bullet images
+fireballImg0 = pygame.image.load("Assets/fireball.png")
+
+#assigning the zuko images to the list
+animationList = []
+
+#place the animation images into the list
+animationList.append(zukoImg0)
+animationList.append(zukoImg1)
+animationList.append(zukoImg2)
+animationList.append(zukoImg3)
+animationList.append(zukoImg4)
+
+#start an animation
+zukoRun = Animation(animationList, 0.3, 5)
 
 #starting X positions for background
 BackgroundXstart = 0
@@ -159,6 +189,8 @@ def main():
             timeSince += dt
             if timeSince > timeBetween :
                 #enemyObstacle = Obstacle(900, 800)
+
+                # last one would be image to use
                 obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY))
                 timeSince = 0
 
@@ -272,7 +304,11 @@ def main():
                     jump = False
                     vel_y = 13
 
-            playerZuko.render(window)
+            #playerZuko.render(window)
+
+            #display the animation overtop of the zuko rectangle
+            zukoRun.display(window, playerZuko.x-200, playerZuko.y-210)
+
         elif (swval == 3):
             #bad end + score
             print ("Bad")
