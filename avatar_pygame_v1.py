@@ -13,6 +13,10 @@ from Enemy import Enemy
 from Obstacle import Obstacle
 from Animation import Animation
 
+#sound mixer
+from pygame import mixer 
+mixer.init()
+
 # pygame.init()
 
 #defining WINDOW SIZE
@@ -95,6 +99,7 @@ animationList.append(zukoImg4)
 #start an animation
 zukoRun = Animation(animationList, 0.3, 6)
 
+
 #starting X positions for background
 BackgroundXstart = 0
 BackgroundX2start = 5000
@@ -108,6 +113,9 @@ startval = 0
 def main():
 # to make the game RUN at a consistent framerate
     clock = pygame.time.Clock()
+
+    # makes the music not overlap
+    playOnce = True
 
     obstacleSpawnClock = pygame.time.Clock()
     enemySpawnClock = pygame.time.Clock()
@@ -137,7 +145,6 @@ def main():
 
     while running:
 
-
        #this makes it so this function can run at most FPS
         clock.tick(fps)
 
@@ -151,26 +158,47 @@ def main():
         keysPressed = pygame.key.get_pressed()
     
         if(swval == 0):
+
+            #loading game sounds and music
+            if playOnce == True:
+                mixer.music.load('Assets/introMusic.wav')
+                #this will make the background music play on a loop
+                mixer.music.play(-1)
+                playOnce = False
+
             #title
             print ("title")
 
             window.blit(startScreenImg,(0, 0))
             
-            # if the 'd' key is pressed
+            # if the 'w' key is pressed, change screens and reset song boolean
             if keysPressed[pygame.K_w] == True:
                 swval = 1
+                playOnce = True
 
         elif(swval == 1):
+
+            #loading instruction sounds and music
+            if playOnce == True:
+                mixer.music.load('Assets/blueSpiritMusic.wav')
+                
+                #this will make the background music play on a loop
+                mixer.music.play(-1)
+                playOnce = False
+
             #instruction
             two = 2
 
             print ("Instructions")
-            # if the 'd' key is pressed
+            # if the 's" key is pressed, switch screens and reset sound boolean
             if keysPressed[pygame.K_s] == True:
                 swval = 2
+                playOnce = True
 
         elif(swval == 2):
             #Game
+
+
             #sets the starting X positions for the backgrounds
             if (BackgroundXrefresh == 1000000):
                 BackgroundX2refresh = BackgroundX2start
@@ -188,6 +216,13 @@ def main():
             if (BackgroundX2refresh <= -5000):
                 BackgroundX2refresh = 5000
 
+            #loading game sounds and music
+            if playOnce == True:
+                mixer.music.load('Assets/agniKaiMusic.wav')
+                
+                #this will make the background music play on a loop
+                mixer.music.play(-1)
+                playOnce = False
 
             #obstacle spawning
             dt = obstacleSpawnClock.tick()
@@ -326,9 +361,26 @@ def main():
         elif (swval == 3):
             #bad end + score
             print ("Bad")
+
+            #loading dead sounds and music
+            if playOnce == True:
+                mixer.music.load('Assets/deathMusic.wav')
+                
+                #this will make the background music play on a loop
+                mixer.music.play(-1)
+                playOnce = False
+
         elif (swval == 4):
             #good end + score
             print ("Good")
+
+            #loading instruction sounds and music
+            if playOnce == True:
+                mixer.music.load('Assets/winScreen.wav')
+                
+                #this will make the background music play on a loop
+                mixer.music.play(-1)
+                playOnce = False
 
         # aObstacle.render(window)
 
