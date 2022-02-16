@@ -59,6 +59,9 @@ flamingFireBallY = enemyShip.y
 
 flamingFireBallList = []
 
+# load the image for the start screen
+startScreenImg = pygame.image.load("Assets/startScreen.jpeg")
+
 # load the image for the background
 backgroundImg = pygame.image.load("Assets/gameBackground.jpeg")
 
@@ -76,7 +79,7 @@ objectImg0 = pygame.image.load("Assets/barrel.png")
 enemyImg0 = pygame.image.load("Assets/balloon.png")
 
 #loading bullet images
-fireballImg0 = pygame.image.load("Assets/fireball.png")
+fireballImg = pygame.image.load("Assets/fireball.png")
 
 #assigning the zuko images to the list
 animationList = []
@@ -89,7 +92,7 @@ animationList.append(zukoImg3)
 animationList.append(zukoImg4)
 
 #start an animation
-zukoRun = Animation(animationList, 0.3, 5)
+zukoRun = Animation(animationList, 0.3, 6)
 
 #starting X positions for background
 BackgroundXstart = 0
@@ -151,6 +154,8 @@ def main():
         if(swval == 0):
             #title
             print ("title")
+
+            window.blit(startScreenImg,(0, 0))
             
             # if the 'd' key is pressed
             if keysPressed[pygame.K_w] == True:
@@ -159,6 +164,7 @@ def main():
         elif(swval == 1):
             #instruction
             two = 2
+
             print ("Instructions")
             # if the 'd' key is pressed
             if keysPressed[pygame.K_s] == True:
@@ -192,6 +198,7 @@ def main():
 
                 # last one would be image to use
                 obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY))
+                
                 timeSince = 0
 
             #shipspawning
@@ -216,12 +223,12 @@ def main():
             #print(len(obstacleList))
             for aObstacle in obstacleList :
 
-                aObstacle.render(window)
+
                 # print(aObstacle.x)
                 #obstacle movement
                 if running == True:
                     aObstacle.x -= aObstacle.speed
-                    aObstacle.render(window)
+                    window.blit(objectImg0,(aObstacle.x, aObstacle.y-5))
             
                 if aObstacle.obstacleHitbox.right < 0:
                     obstacleList.remove(aObstacle)
@@ -241,7 +248,7 @@ def main():
             # print(len(enemyList))
             for aEnemy in enemyList :
             
-                aEnemy.render(window)
+                window.blit(enemyImg0,(aEnemy.x-120, aEnemy.y-175))
 
                 #enemy movement
                 if running == True:
@@ -255,6 +262,7 @@ def main():
             for aFlamingFireBall in flamingFireBallList :
 
                 aFlamingFireBall.render(window)
+                window.blit(fireballImg,(aFlamingFireBall.x, aFlamingFireBall.y))
 
                  #flamingFireBall movement
                 if running == True:
@@ -304,10 +312,8 @@ def main():
                     jump = False
                     vel_y = 13
 
-            #playerZuko.render(window)
-
-            #display the animation overtop of the zuko rectangle
-            zukoRun.display(window, playerZuko.x-200, playerZuko.y-210)
+            #display the animation overtop of the zuko's hitbox
+            zukoRun.display(window, playerZuko.x-200, playerZuko.y-125)
 
         elif (swval == 3):
             #bad end + score
