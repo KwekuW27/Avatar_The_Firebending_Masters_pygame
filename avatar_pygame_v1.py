@@ -47,12 +47,12 @@ enemyList.append(Enemy(enemyShipX, enemyShipY))
 enemyObstacleX = 900
 enemyObstacleY = 750
 
-enemyObstacle = Obstacle(enemyObstacleX, enemyObstacleY)
+# enemyObstacle = Obstacle(enemyObstacleX, enemyObstacleY)
 
 obstacleList = []
 
 #enemyObstacle = Obstacle(900, 800)
-obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY))
+# obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY))
 
 flamingFireBallX = enemyShip.x/2
 flamingFireBallY = enemyShip.y
@@ -74,6 +74,7 @@ zukoImg4 = pygame.image.load("Assets/run4.png")
 
 #loading object images
 objectImg0 = pygame.image.load("Assets/barrel.png")
+objectImg1 = pygame.image.load("Assets/cabbageMan.jpeg")
 
 #loading enemy images
 enemyImg0 = pygame.image.load("Assets/balloon.png")
@@ -137,8 +138,6 @@ def main():
     while running:
 
 
-        
-
        #this makes it so this function can run at most FPS
         clock.tick(fps)
 
@@ -197,7 +196,15 @@ def main():
                 #enemyObstacle = Obstacle(900, 800)
 
                 # last one would be image to use
-                obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY))
+                
+                randObstacleNum = randint(0,10)
+
+                if randObstacleNum <= 9:
+                    imageToUse = objectImg0
+                else:
+                    imageToUse = objectImg1
+
+                obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY, imageToUse))
                 
                 timeSince = 0
 
@@ -228,7 +235,8 @@ def main():
                 #obstacle movement
                 if running == True:
                     aObstacle.x -= aObstacle.speed
-                    window.blit(objectImg0,(aObstacle.x, aObstacle.y-5))
+
+                    aObstacle.render(window)
             
                 if aObstacle.obstacleHitbox.right < 0:
                     obstacleList.remove(aObstacle)
