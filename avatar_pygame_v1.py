@@ -164,7 +164,7 @@ def main():
 
     swval = startval
     
-    vel_y = 25
+    vel_y = 18
 
     running = True #capitalized T = boolean
 
@@ -192,7 +192,6 @@ def main():
                 playOnce = False
 
             #title
-            print ("title")
 
             window.blit(startScreenImg,(0, 0))
             
@@ -215,8 +214,6 @@ def main():
 
             #instruction
             two = 2
-
-            print ("Instructions")
             # if the 's" key is pressed, switch screens and reset sound boolean
             if keysPressed[pygame.K_s] == True:
                 swval = 2
@@ -332,18 +329,17 @@ def main():
             if sscore >= 100-vscore:
                 tscore += iscore
                 sscore = 0
-                
+                print("Score: "+str(tscore))
                 vscore += 3
                 if vscore > 90:
                     vscore = 90
+                    iscore += 1
                 if iscore > 100:
                     iscore = 100
 
             #tiskcpeed increase
             sscore += 1
 
-            #diplsy score
-            print("Score: "+str(tscore))
             
 
             # print(len(enemyList))
@@ -444,7 +440,13 @@ def main():
 
         elif (swval == 4):
             #good end + score
-            print ("Good")
+
+
+            # if the 'w' key is pressed, change screens and reset song boolean
+            if keysPressed[pygame.K_q] == True:
+                swval = 1
+                playOnce = True
+
 
             #loading instruction sounds and music
             if playOnce == True:
