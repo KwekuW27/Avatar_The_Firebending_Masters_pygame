@@ -4,8 +4,8 @@ class Player:
 
     ### global call vars###
     health = 5
-    width = 40
-    height = 40
+    width = 150
+    height = 150
     speed = 2
     isDead = False
     #constructor function

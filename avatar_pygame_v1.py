@@ -253,22 +253,18 @@ def main():
             timeSince += dt
             if timeSince > timeBetween :
                 #enemyObstacle = Obstacle(900, 800)
-
-                # last one would be image to use
                 
+                #based on this randomly generated number, generate 1 of 3 obs
                 randObstacleNum = randint(0,10)
 
                 if randObstacleNum <= 5:
-                    imageToUse = objectImg0
-                    obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY, imageToUse))
+                    obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY, objectImg0))
 
                 elif randObstacleNum >= 7:
-                    imageToUse = objectImg1
-                    obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY-130, imageToUse))
+                    obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY-130, objectImg1))
                     
                 else:
-                    imageToUse = objectImg2
-                    obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY-175, imageToUse))
+                    obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY-175, objectImg2))
 
                 # obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY, imageToUse))
                 
@@ -306,7 +302,7 @@ def main():
 
                     aObstacle.render(window)
             
-                if aObstacle.obstacleHitbox.right < -150:
+                if aObstacle.obstacleHitbox.right < 0:
                     obstacleList.remove(aObstacle)
                     print("right side detected")
             
@@ -319,6 +315,7 @@ def main():
                         playerZuko.hitBox.right = aObstacle.obstacleHitbox.left
                         playerZuko.hitBox.bottom = aObstacle.obstacleHitbox.top
                         obstacleList.remove(aObstacle)
+
                         print("colliding")
                         vscore = 0
                         sscore = 0
