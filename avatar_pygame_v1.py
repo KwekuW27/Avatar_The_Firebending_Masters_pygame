@@ -422,16 +422,19 @@ def main():
             zukoRun.display(window, playerZuko.x-50, playerZuko.y-25)
 
             if lives <= 0:
-                Player.isDead = true
+                Player.isDead = True
 
             if Player.isDead == true:
                 finalScore = tscore
+                playOnce = True
                 tscore= 0
                 sscore= 0 
                 vscore= 0
                 iscore= 5
                 lives = 3
                 swval = 4
+                Player.isDead = False
+                
 
 
 
@@ -439,13 +442,6 @@ def main():
             #bad end + score
             print ("Bad")
 
-            #loading dead sounds and music
-            if playOnce == True:
-                mixer.music.load('Assets/deathMusic.wav')
-                
-                #this will make the background music play on a loop
-                mixer.music.play(-1)
-                playOnce = False
 
         elif (swval == 4):
             #good end + score
@@ -453,19 +449,19 @@ def main():
             window.blit(endImg,(0, 0))
 
 
-            # if the 'w' key is pressed, change screens and reset song boolean
-            if keysPressed[pygame.K_q] == True:
-                swval = 1
-                playOnce = True
-
-
             #loading instruction sounds and music
             if playOnce == True:
-                mixer.music.load('Assets/winScreen.wav')
+                mixer.music.load('Assets/deathMusic.wav')
                 
                 #this will make the background music play on a loop
                 mixer.music.play(-1)
                 playOnce = False
+
+            
+            # if the 'w' key is pressed, change screens and reset song boolean
+            if keysPressed[pygame.K_q] == True:
+                swval = 0
+                playOnce = True
 
         # aObstacle.render(window)
 
