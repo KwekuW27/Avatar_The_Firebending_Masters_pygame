@@ -81,7 +81,7 @@ zukoImg4 = pygame.image.load("Assets/run4.png")
 
 #loading object images
 objectImg0 = pygame.image.load("Assets/barrel.png")
-objectImg1 = pygame.image.load("Assets/firenationguard.png")
+objectImg1 = pygame.image.load("Assets/fireNationGuy.png")
 objectImg2 = pygame.image.load("Assets/cabbageGuy.png")
 
 #loading enemy images
