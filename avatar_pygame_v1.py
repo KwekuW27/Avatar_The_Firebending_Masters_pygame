@@ -63,6 +63,18 @@ flamingFireBallY = enemyShip.y
 
 flamingFireBallList = []
 
+# color
+# white = (255,255,255)
+            
+# position
+# tscoredisplayposX = 0
+# # tscoredisplayposy = 550
+
+# rendering
+# display_surface = pygame.display.set_mode((tscoredisplayposX, tscoredisplayposy))
+# font = pygame.font.SysFont('timesnewroman', 10)
+
+
 # load the image for the start screen
 startScreenImg = pygame.image.load("Assets/startScreen.jpeg")
 
@@ -133,6 +145,12 @@ def main():
     #flamingFireBall Time vars
     timeSince3 = 0
     timeBetween3 = 1000
+
+    #scoring system initializers
+    sscore = 0
+    tscore = 0
+    vscore = 0
+    iscore = 5
 
 
     #sets display positions
@@ -255,6 +273,7 @@ def main():
                 # obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY, imageToUse))
                 
                 timeSince = 0
+                timeBetween = randrange(1000, 6000)
 
             #shipspawning
             dt = enemySpawnClock.tick()
@@ -262,6 +281,7 @@ def main():
             if timeSince2 > timeBetween2 :
                 enemyList.append(Enemy(enemyShipX, enemyShipY))
                 timeSince2 = 0
+                timeBetween2 = randrange(3000, 15000)
 
 
                     #flamingForeBallspawning
@@ -300,6 +320,27 @@ def main():
                         playerZuko.hitBox.bottom = aObstacle.obstacleHitbox.top
                         obstacleList.remove(aObstacle)
                         print("colliding")
+                        vscore = 0
+                        sscore = 0
+                        iscore = 5
+
+            #Score coding
+            if sscore >= 100-vscore:
+                tscore += iscore
+                sscore = 0
+                
+                vscore += 3
+                if vscore > 90:
+                    vscore = 90
+                if iscore > 100:
+                    iscore = 100
+
+            #tiskcpeed increase
+            sscore += 1
+
+            #diplsy score
+            print("Score: "+str(tscore))
+            
 
             # print(len(enemyList))
             for aEnemy in enemyList :
@@ -328,6 +369,7 @@ def main():
                     flamingFireBallList.remove(aFlamingFireBall)
                     print("top side detected")
 
+            #text = font.render('Score: '+str(tscore), True, white, None)
 
             # DONT USE
             #collision between flamingFireBall and player
@@ -341,6 +383,7 @@ def main():
 
             # print("end of for loop")
 
+            
 
             # if the 'w' key is pressed
             if keysPressed[pygame.K_a] == True:
