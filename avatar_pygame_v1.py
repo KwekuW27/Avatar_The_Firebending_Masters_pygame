@@ -133,7 +133,7 @@ BackgroundXstart = 0
 BackgroundX2start = 5000
 
 #switch case starting number
-startval = 4
+startval = 0
 
 # flamingFireBallList.append(FlamingFireBall(aEnemy.x, aEnemy.y))
 
