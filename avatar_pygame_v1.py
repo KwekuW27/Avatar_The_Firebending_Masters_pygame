@@ -4,7 +4,7 @@ from random import randrange
 from random import randint
 from turtle import window_width
 import pygame
-from sqlalchemy import false
+from sqlalchemy import false, true
 from FlamingFireBall import FlamingFireBall
 # from sqlalchemy import true #import
 from Player import Player
@@ -151,6 +151,9 @@ def main():
     tscore = 0
     vscore = 0
     iscore = 5
+    finalScore = 0
+
+    lives = Player.health
 
 
     #sets display positions
@@ -189,7 +192,6 @@ def main():
                 playOnce = False
 
             #title
-            print ("title")
 
             window.blit(startScreenImg,(0, 0))
             
@@ -212,8 +214,6 @@ def main():
 
             #instruction
             two = 2
-
-            print ("Instructions")
             # if the 's" key is pressed, switch screens and reset sound boolean
             if keysPressed[pygame.K_s] == True:
                 swval = 2
@@ -320,23 +320,23 @@ def main():
                         vscore = 0
                         sscore = 0
                         iscore = 5
+                        lives += -1
 
             #Score coding
             if sscore >= 100-vscore:
                 tscore += iscore
                 sscore = 0
-                
+                print("Score: "+str(tscore))
                 vscore += 3
                 if vscore > 90:
                     vscore = 90
+                    iscore += 1
                 if iscore > 100:
                     iscore = 100
 
             #tiskcpeed increase
             sscore += 1
 
-            #diplsy score
-            print("Score: "+str(tscore))
             
 
             # print(len(enemyList))
@@ -409,6 +409,20 @@ def main():
             #display the animation overtop of the zuko's hitbox
             zukoRun.display(window, playerZuko.x-200, playerZuko.y-125)
 
+            if lives <= 0:
+                Player.isDead = true
+
+            if Player.isDead == true:
+                finalScore = tscore
+                swval = 4
+                tscore= 0
+                sscore= 0 
+                vscore= 0
+                iscore= 5
+                lives = Player.health
+
+
+
         elif (swval == 3):
             #bad end + score
             print ("Bad")
@@ -423,7 +437,13 @@ def main():
 
         elif (swval == 4):
             #good end + score
-            print ("Good")
+
+
+            # if the 'w' key is pressed, change screens and reset song boolean
+            if keysPressed[pygame.K_q] == True:
+                swval = 1
+                playOnce = True
+
 
             #loading instruction sounds and music
             if playOnce == True:
