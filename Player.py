@@ -6,7 +6,7 @@ class Player:
     health = 5
     width = 150
     height = 150
-    speed = 2
+    speed = 4
     isDead = False
     #constructor function
     #health

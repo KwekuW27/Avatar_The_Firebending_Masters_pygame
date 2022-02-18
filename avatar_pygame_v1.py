@@ -76,8 +76,12 @@ tscoredisplayposY = 550
 livesisplayposX = 0
 livesisplayposY = 500
 
+# position
+TotalScoredisplayposX = 500
+TotalScoredisplayposY = 200
+
 # rendering
-font = pygame.font.SysFont('timesnewroman', 20)
+font = pygame.font.SysFont('arialblack', 20)
 
 
 # load the image for the start screen
@@ -129,7 +133,7 @@ BackgroundXstart = 0
 BackgroundX2start = 5000
 
 #switch case starting number
-startval = 0
+startval = 4
 
 # flamingFireBallList.append(FlamingFireBall(aEnemy.x, aEnemy.y))
 
@@ -172,7 +176,7 @@ def main():
 
     swval = startval
     
-    vel_y = 18
+    vel_y = 25
 
     running = True #capitalized T = boolean
 
@@ -411,9 +415,9 @@ def main():
             if jump is True :
                 playerZuko.y -= vel_y
                 vel_y -= 1
-                if vel_y < -18 :
+                if vel_y < -25 :
                     jump = False
-                    vel_y = 18
+                    vel_y = 25
 
             playerZuko.render(window)
 
@@ -447,6 +451,8 @@ def main():
 
             window.blit(endImg,(0, 0))
 
+            Totalscoretext = font.render('Ending Score: '+str(finalScore), True, (0,0,0), None)
+            window.blit(Totalscoretext, (400, 325))
 
             #loading instruction sounds and music
             if playOnce == True:
@@ -456,7 +462,7 @@ def main():
                 mixer.music.play(-1)
                 playOnce = False
 
-            
+
             # if the 'w' key is pressed, change screens and reset song boolean
             if keysPressed[pygame.K_q] == True:
                 swval = 0
