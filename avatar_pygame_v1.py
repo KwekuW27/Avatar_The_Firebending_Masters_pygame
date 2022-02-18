@@ -422,7 +422,7 @@ def main():
             zukoRun.display(window, playerZuko.x-50, playerZuko.y-25)
 
             if lives <= 0:
-                Player.isDead = True
+                Player.isDead = true
 
             if Player.isDead == true:
                 finalScore = tscore
