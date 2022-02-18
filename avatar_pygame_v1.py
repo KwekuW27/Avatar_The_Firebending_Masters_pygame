@@ -66,6 +66,9 @@ flamingFireBallList = []
 # load the image for the start screen
 startScreenImg = pygame.image.load("Assets/startScreen.jpeg")
 
+# load the image for the instruction screen
+instructionImg = pygame.image.load("Assets/instructions.jpeg")
+
 # load the image for the background
 backgroundImg = pygame.image.load("Assets/gameBackground.jpeg")
 
@@ -78,7 +81,8 @@ zukoImg4 = pygame.image.load("Assets/run4.png")
 
 #loading object images
 objectImg0 = pygame.image.load("Assets/barrel.png")
-objectImg1 = pygame.image.load("Assets/cabbageMan.jpeg")
+objectImg1 = pygame.image.load("Assets/firenationguard.png")
+objectImg2 = pygame.image.load("Assets/cabbageGuy.png")
 
 #loading enemy images
 enemyImg0 = pygame.image.load("Assets/balloon.png")
@@ -178,9 +182,11 @@ def main():
 
         elif(swval == 1):
 
+            window.blit(instructionImg,(0, 0))
+
             #loading instruction sounds and music
             if playOnce == True:
-                mixer.music.load('Assets/blueSpiritMusic.wav')
+                mixer.music.load('Assets/blueSpiritMusic.wav')    
                 
                 #this will make the background music play on a loop
                 mixer.music.play(-1)
@@ -197,7 +203,6 @@ def main():
 
         elif(swval == 2):
             #Game
-
 
             #sets the starting X positions for the backgrounds
             if (BackgroundXrefresh == 1000000):
@@ -234,12 +239,19 @@ def main():
                 
                 randObstacleNum = randint(0,10)
 
-                if randObstacleNum <= 9:
+                if randObstacleNum <= 5:
                     imageToUse = objectImg0
-                else:
-                    imageToUse = objectImg1
+                    obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY, imageToUse))
 
-                obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY, imageToUse))
+                elif randObstacleNum >= 7:
+                    imageToUse = objectImg1
+                    obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY-130, imageToUse))
+                    
+                else:
+                    imageToUse = objectImg2
+                    obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY-175, imageToUse))
+
+                # obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY, imageToUse))
                 
                 timeSince = 0
 
@@ -273,7 +285,7 @@ def main():
 
                     aObstacle.render(window)
             
-                if aObstacle.obstacleHitbox.right < 0:
+                if aObstacle.obstacleHitbox.right < -150:
                     obstacleList.remove(aObstacle)
                     print("right side detected")
             
