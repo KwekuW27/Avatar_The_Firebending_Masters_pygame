@@ -27,4 +27,4 @@ class Player:
         self.hitBox = pygame.Rect(self.x, self.y, self.width, self.height)
 
         #Drawing Rectangle
-        pygame.draw.rect(aSurface, (255,255,255), self.hitBox)
+        #pygame.draw.rect(aSurface, (255,255,255), self.hitBox)

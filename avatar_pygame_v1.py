@@ -35,7 +35,7 @@ pygame.display.set_caption("avatar_pyGame")
 fps = 60
 
 playerZukoX = 100
-playerZukoY = 750
+playerZukoY = 640
 
 #player var
 playerZuko = Player(playerZukoX, playerZukoY)
@@ -410,8 +410,10 @@ def main():
                     jump = False
                     vel_y = 18
 
+            playerZuko.render(window)
+
             #display the animation overtop of the zuko's hitbox
-            zukoRun.display(window, playerZuko.x-200, playerZuko.y-125)
+            zukoRun.display(window, playerZuko.x-50, playerZuko.y-25)
 
             if lives <= 0:
                 Player.isDead = true
