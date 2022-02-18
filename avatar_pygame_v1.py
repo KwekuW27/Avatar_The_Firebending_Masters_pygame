@@ -126,10 +126,10 @@ def main():
     flamingFireBallSpawnClock = pygame.time.Clock()
     #obstacle Time vars
     timeSince = 0
-    timeBetween = 3000
+    timeBetween = randrange(2000, 7000)
     #enemyShip Time vars
     timeSince2 = 0
-    timeBetween2 = 3000
+    timeBetween2 = randrange(3000, 15000)
     #flamingFireBall Time vars
     timeSince3 = 0
     timeBetween3 = 1000
@@ -143,7 +143,7 @@ def main():
 
     swval = startval
     
-    vel_y = 13
+    vel_y = 18
 
     running = True #capitalized T = boolean
 
@@ -202,6 +202,7 @@ def main():
                 playOnce = True
 
         elif(swval == 2):
+            
             #Game
 
             #sets the starting X positions for the backgrounds
@@ -328,8 +329,6 @@ def main():
                     print("top side detected")
 
 
-            
-
             # DONT USE
             #collision between flamingFireBall and player
             # collide2 = pygame.Rect.colliderect(playerZuko.hitBox, aFlamingFireBall.flamingFireBallHitbox)
@@ -363,9 +362,9 @@ def main():
             if jump is True :
                 playerZuko.y -= vel_y
                 vel_y -= 1
-                if vel_y < -13 :
+                if vel_y < -18 :
                     jump = False
-                    vel_y = 13
+                    vel_y = 18
 
             #display the animation overtop of the zuko's hitbox
             zukoRun.display(window, playerZuko.x-200, playerZuko.y-125)
@@ -396,10 +395,8 @@ def main():
 
         # aObstacle.render(window)
 
-
         # put code here that should be run every frame
         # of your game
         pygame.display.update()
         
 main()
-
