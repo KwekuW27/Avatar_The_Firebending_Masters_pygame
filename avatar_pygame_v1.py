@@ -70,7 +70,11 @@ white = (255,255,255)
             
 # position
 tscoredisplayposX = 0
-tscoredisplayposy = 550
+tscoredisplayposY = 550
+
+# position
+livesisplayposX = 0
+livesisplayposY = 500
 
 # rendering
 font = pygame.font.SysFont('timesnewroman', 10)
@@ -369,8 +373,10 @@ def main():
                     flamingFireBallList.remove(aFlamingFireBall)
                     print("top side detected")
 
-            text = font.render('Score: '+str(tscore), True, white, None)
-            window.blit(text, (tscoredisplayposX // 2, tscoredisplayposy// 2))
+            Scoretext = font.render('Score: '+str(tscore), True, white, None)
+            Livestext = font.render('Lives: '+str(lives), True, white, None)
+            window.blit(Scoretext, (tscoredisplayposX // 2, tscoredisplayposY// 2))
+            window.blit(Livestext, (tscoredisplayposX // 2, tscoredisplayposY// 2))
 
             # DONT USE
             #collision between flamingFireBall and player
