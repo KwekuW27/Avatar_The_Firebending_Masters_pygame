@@ -77,7 +77,7 @@ livesisplayposX = 0
 livesisplayposY = 500
 
 # rendering
-font = pygame.font.SysFont('timesnewroman', 10)
+font = pygame.font.SysFont('timesnewroman', 20)
 
 
 # load the image for the start screen
@@ -375,9 +375,8 @@ def main():
 
             Scoretext = font.render('Score: '+str(tscore), True, white, None)
             Livestext = font.render('Lives: '+str(lives), True, white, None)
-            window.blit(Scoretext, (tscoredisplayposX // 2, tscoredisplayposY// 2))
-            window.blit(Livestext, (tscoredisplayposX // 2, tscoredisplayposY// 2))
-
+            window.blit(Scoretext, (tscoredisplayposX // 2, tscoredisplayposY // 2))
+            window.blit(Livestext, (livesisplayposX // 2, livesisplayposY // 2))
             # DONT USE
             #collision between flamingFireBall and player
             # collide2 = pygame.Rect.colliderect(playerZuko.hitBox, aFlamingFireBall.flamingFireBallHitbox)
