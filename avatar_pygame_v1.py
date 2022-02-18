@@ -4,7 +4,7 @@ from random import randrange
 from random import randint
 from turtle import window_width
 import pygame
-from sqlalchemy import false
+from sqlalchemy import false, true
 from FlamingFireBall import FlamingFireBall
 # from sqlalchemy import true #import
 from Player import Player
@@ -151,6 +151,9 @@ def main():
     tscore = 0
     vscore = 0
     iscore = 5
+    finalScore = 0
+
+    lives = Player.health
 
 
     #sets display positions
@@ -161,7 +164,7 @@ def main():
 
     swval = startval
     
-    vel_y = 18
+    vel_y = 25
 
     running = True #capitalized T = boolean
 
@@ -323,6 +326,7 @@ def main():
                         vscore = 0
                         sscore = 0
                         iscore = 5
+                        lives += -1
 
             #Score coding
             if sscore >= 100-vscore:
@@ -411,6 +415,20 @@ def main():
 
             #display the animation overtop of the zuko's hitbox
             zukoRun.display(window, playerZuko.x-200, playerZuko.y-125)
+
+            if lives <= 0:
+                Player.isDead = true
+
+            if Player.isDead == true:
+                finalScore = tscore
+                swval = 4
+                tscore= 0
+                sscore= 0 
+                vscore= 0
+                iscore= 5
+                lives = Player.health
+
+
 
         elif (swval == 3):
             #bad end + score
