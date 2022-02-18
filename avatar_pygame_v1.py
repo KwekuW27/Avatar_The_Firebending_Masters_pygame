@@ -13,6 +13,8 @@ from Enemy import Enemy
 from Obstacle import Obstacle
 from Animation import Animation
 
+pygame.font.init()
+
 #sound mixer
 from pygame import mixer 
 mixer.init()
@@ -64,15 +66,14 @@ flamingFireBallY = enemyShip.y
 flamingFireBallList = []
 
 # color
-# white = (255,255,255)
+white = (255,255,255)
             
 # position
-# tscoredisplayposX = 0
-# # tscoredisplayposy = 550
+tscoredisplayposX = 0
+tscoredisplayposy = 550
 
 # rendering
-# display_surface = pygame.display.set_mode((tscoredisplayposX, tscoredisplayposy))
-# font = pygame.font.SysFont('timesnewroman', 10)
+font = pygame.font.SysFont('timesnewroman', 10)
 
 
 # load the image for the start screen
@@ -366,7 +367,8 @@ def main():
                     flamingFireBallList.remove(aFlamingFireBall)
                     print("top side detected")
 
-            #text = font.render('Score: '+str(tscore), True, white, None)
+            text = font.render('Score: '+str(tscore), True, white, None)
+            window.blit(text, (tscoredisplayposX // 2, tscoredisplayposy// 2))
 
             # DONT USE
             #collision between flamingFireBall and player
