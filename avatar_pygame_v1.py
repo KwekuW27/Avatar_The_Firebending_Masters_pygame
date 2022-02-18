@@ -85,6 +85,9 @@ instructionImg = pygame.image.load("Assets/instructions.jpeg")
 # load the image for the background
 backgroundImg = pygame.image.load("Assets/gameBackground.jpeg")
 
+#load in image for the end screen
+endImg = pygame.image.load("Assets/endScreen.jpeg")
+
 #player Animation images
 zukoImg0 = pygame.image.load("Assets/run0.png")
 zukoImg1 = pygame.image.load("Assets/run1.png")
@@ -154,7 +157,7 @@ def main():
     iscore = 5
     finalScore = 0
 
-    lives = Player.health
+    lives = 3
 
 
     #sets display positions
@@ -259,15 +262,14 @@ def main():
                 randObstacleNum = randint(0,10)
 
                 if randObstacleNum <= 5:
-                    obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY, objectImg0))
+                    obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY, 75, 56, objectImg0))
 
                 elif randObstacleNum >= 7:
-                    obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY-130, objectImg1))
+                    obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY-130, 107, 197, objectImg1))
                     
                 else:
-                    obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY-175, objectImg2))
+                    obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY-150, 216, 197, objectImg2))
 
-                # obstacleList.append(Obstacle(enemyObstacleX, enemyObstacleY, imageToUse))
                 
                 timeSince = 0
                 timeBetween = randrange(1000, 6000)
@@ -416,12 +418,12 @@ def main():
 
             if Player.isDead == true:
                 finalScore = tscore
-                swval = 4
                 tscore= 0
                 sscore= 0 
                 vscore= 0
                 iscore= 5
-                lives = Player.health
+                lives = 3
+                swval = 4
 
 
 
@@ -439,6 +441,8 @@ def main():
 
         elif (swval == 4):
             #good end + score
+
+            window.blit(endImg,(0, 0))
 
 
             # if the 'w' key is pressed, change screens and reset song boolean

@@ -3,8 +3,6 @@ import pygame
 class Obstacle:
 
     ### global call vars###
-    width = 40
-    height = 40
     speed = 2
     #constructor function
     #health
@@ -16,7 +14,9 @@ class Obstacle:
     #isDead
 
 
-    def __init__(self, x, y, image):
+    def __init__(self, x, y, w, h, image):
+        self.width = w 
+        self.height = h
         self.x = x
         self.y = y
         self.image = image
